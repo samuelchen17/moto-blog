@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const config = {
   mongo: {
     options: {
@@ -9,7 +13,7 @@ const config = {
       autoIndex: false,
       retryWrites: false,
     },
-    url: "mongodb+srv://admin:<password>@learning.jltuol3.mongodb.net/?retryWrites=true&w=majority&appName=Learning",
+    url: process.env.MONGODB_URL,
   },
   server: {
     host: "localhost",

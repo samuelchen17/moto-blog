@@ -4,9 +4,7 @@ import morgan from "morgan";
 import config from "./config/config";
 import mongoose from "mongoose";
 import firebaseAdmin from "firebase-admin";
-import dotenv from "dotenv";
-
-dotenv.config();
+import cors from "cors";
 
 const router = express();
 
@@ -22,7 +20,7 @@ firebaseAdmin.initializeApp({
 
 // connect to mongo
 mongoose
-  .connect(process.env.MONGODB_URL, config.mongo.options)
+  .connect(config.mongo.url, config.mongo.options)
   .then(() => {
     console.log("Mongo connected");
   })
@@ -38,20 +36,20 @@ router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 // api access policies
-router.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+// cors policy
+const corsOptions = {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: [
+    "Origin",
+    "X-Requested-With",
+    "Content-Type",
+    "Accept",
+    "Authorization",
+  ],
+};
 
-  if (req.method == "OPTIONS") {
-    res.header("Access-Control-Allow-Headers", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
-  }
-
-  next();
-});
+router.use(cors(corsOptions));
 
 // Routes
 
