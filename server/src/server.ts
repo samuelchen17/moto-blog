@@ -6,10 +6,10 @@ import mongoose from "mongoose";
 import firebaseAdmin from "firebase-admin";
 import cors from "cors";
 
-const router = express();
+const app = express();
 
 // server handling
-const httpServer = http.createServer(router);
+const httpServer = http.createServer(app);
 
 // connect to firebase admin
 let serviceAccountKey = require("./config/serviceAccountKey.json");
@@ -28,12 +28,12 @@ mongoose
     console.log(error);
   });
 
-router.use(morgan("dev"));
+app.use(morgan("dev"));
 
 // parse the body
 // allow the server to read incoming request and body in json format
-router.use(express.urlencoded({ extended: true }));
-router.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // api access policies
 // cors policy
@@ -49,18 +49,20 @@ const corsOptions = {
   ],
 };
 
-router.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // Routes
 
-// Error handling
-router.use((req, res, next) => {
-  const error = new Error("not found");
-
-  return res.status(404).json({
+// Errpr handling
+// Error handling for 404
+app.use((req, res, next) => {
+  const error = new Error("Not found");
+  res.status(404).json({
     message: error.message,
   });
 });
+
+// add global error handler
 
 // listen for requests
 httpServer.listen(config.server.port, () => {});
