@@ -4,6 +4,9 @@ import morgan from "morgan";
 import config from "./config/config";
 import mongoose from "mongoose";
 import firebaseAdmin from "firebase-admin";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const router = express();
 
@@ -19,7 +22,7 @@ firebaseAdmin.initializeApp({
 
 // connect to mongo
 mongoose
-  .connect(config.mongo.url, config.mongo.options)
+  .connect(process.env.MONGODB_URL, config.mongo.options)
   .then(() => {
     console.log("Mongo connected");
   })
@@ -49,3 +52,17 @@ router.use((req, res, next) => {
 
   next();
 });
+
+// Routes
+
+// Error handling
+router.use((req, res, next) => {
+  const error = new Error("not found");
+
+  return res.status(404).json({
+    message: error.message,
+  });
+});
+
+// listen for requests
+httpServer.listen(config.server.port, () => {});
