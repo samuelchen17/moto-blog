@@ -21,8 +21,31 @@ firebaseAdmin.initializeApp({
 mongoose
   .connect(config.mongo.url, config.mongo.options)
   .then(() => {
-    logging.info("Mongo connected");
+    console.log("Mongo connected");
   })
   .catch((error) => {
-    logging.error(error);
+    console.log(error);
   });
+
+router.use(morgan("dev"));
+
+// parse the body
+// allow the server to read incoming request and body in json format
+router.use(express.urlencoded({ extended: true }));
+router.use(express.json());
+
+// api access policies
+router.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+
+  if (req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Headers", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+
+  next();
+});
