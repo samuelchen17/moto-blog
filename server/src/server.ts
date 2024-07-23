@@ -1,3 +1,5 @@
+// can separate this file into server.ts, app.ts and db.ts
+
 import http from "http";
 import express from "express";
 import morgan from "morgan";
@@ -5,6 +7,9 @@ import config from "./config/config";
 import mongoose from "mongoose";
 import firebaseAdmin from "firebase-admin";
 import cors from "cors";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 
@@ -12,21 +17,38 @@ const app = express();
 const httpServer = http.createServer(app);
 
 // connect to firebase admin
-let serviceAccountKey = require("./config/serviceAccountKey.json");
+const serviceAccountKey = JSON.parse(
+  process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string
+);
 
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAccountKey),
 });
 
-// connect to mongo using mongoose
-mongoose
-  .connect(config.mongo.url, config.mongo.options)
-  .then(() => {
+// mongodb setup using mongoose
+// async await method, can separate into another file
+const connectDB = async () => {
+  try {
+    await mongoose.connect(config.mongo.url, config.mongo.options);
     console.log("Mongo connected");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+  } catch (error) {
+    console.error("Error connecting to Mongo", error);
+    // exit the process with a failure code 1 if connection fails
+    process.exit(1);
+  }
+};
+
+connectDB();
+
+// .then.catch method
+// mongoose
+//   .connect(config.mongo.url, config.mongo.options)
+//   .then(() => {
+//     console.log("Mongo connected");
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 // Logging
 // HTTP request logger, logs details about incoming HTTP requests such as request method, URL, status code, response time etc.
