@@ -18,7 +18,7 @@ firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(serviceAccountKey),
 });
 
-// connect to mongo
+// connect to mongo using mongoose
 mongoose
   .connect(config.mongo.url, config.mongo.options)
   .then(() => {
@@ -28,11 +28,15 @@ mongoose
     console.log(error);
   });
 
+// Logging
+// HTTP request logger, logs details about incoming HTTP requests such as request method, URL, status code, response time etc.
 app.use(morgan("dev"));
 
 // parse the body
 // allow the server to read incoming request and body in json format
+// for applications that handle form submissions from an HTML form
 app.use(express.urlencoded({ extended: true }));
+// for applications that handle JSON payloads, typically sent by SPAs or RESTful APIs
 app.use(express.json());
 
 // api access policies
