@@ -5,6 +5,9 @@ import config from "../config/config";
 // async await method, can separate into another file
 const connectDB = async () => {
   try {
+    if (!config.mongo.url) {
+      throw new Error("MongoDB URL is not defined in the configuration.");
+    }
     await mongoose.connect(config.mongo.url, config.mongo.options);
     console.log("Mongo connected");
   } catch (error) {
