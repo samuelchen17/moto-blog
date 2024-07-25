@@ -1,12 +1,15 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import connectDB from "../database";
 
 const app = express();
 
 // Logging
 // HTTP request logger, logs details about incoming HTTP requests such as request method, URL, status code, response time etc.
 app.use(morgan("dev"));
+
+connectDB();
 
 // parse the body
 // allow the server to read incoming request and body in json format
@@ -34,7 +37,7 @@ app.use(cors(corsOptions));
 // Errpr handling
 // Error handling for 404
 app.use((req, res, next) => {
-  const error = new Error("Not found");
+  const error = new Error("404 error");
   res.status(404).json({
     message: error.message,
   });

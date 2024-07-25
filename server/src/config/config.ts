@@ -5,13 +5,10 @@ dotenv.config();
 const config = {
   mongo: {
     options: {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      socketTimeoutMS: 30000,
-      keepAlive: true,
-      poolSize: 50,
-      autoIndex: false,
-      retryWrites: false,
+      socketTimeoutMS: 30000, // Timeout after 30 seconds of inactivity
+      maxPoolSize: 50, // Maximum of 50 connections in the connection pool
+      autoIndex: false, // Don't automatically build indexes, useful for production
+      retryWrites: false, // Disable retryable writes for more control
     },
     url: process.env.MONGODB_URL,
   },
