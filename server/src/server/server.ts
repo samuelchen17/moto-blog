@@ -4,7 +4,7 @@ import config from "../config/config";
 // ensures db connection
 import "../database";
 // ensures firebase initialisation
-import "../firebase";
+// import "../firebase";
 
 // create HTTP server
 const httpServer = http.createServer(app);
