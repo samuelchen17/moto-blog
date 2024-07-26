@@ -1,8 +1,8 @@
 import React from "react";
 import IPageProps from "../interfaces/page";
 
-const Blog: React.FunctionComponent<IPageProps> = (props) => {
+const BlogPage = (props: IPageProps) => {
   return <div>blog</div>;
 };
 
-export default Blog;
+export default BlogPage;
