@@ -1,5 +1,12 @@
-import { Button, Navbar, TextInput } from "flowbite-react";
 import React from "react";
+import {
+  Button,
+  Navbar,
+  NavbarCollapse,
+  NavbarLink,
+  NavbarToggle,
+  TextInput,
+} from "flowbite-react";
 import { Link } from "react-router-dom";
 import helmetIcon from "../assets/helmet.svg";
 import { IoMdSearch } from "react-icons/io";
@@ -30,7 +37,20 @@ const Header = () => {
         <Link className="flex justify-center items-center gap-2" to="/login">
           <Button gradientDuoTone="greenToBlue">Log In</Button>
         </Link>
+        <NavbarToggle />
       </div>
+
+      <NavbarCollapse>
+        <Navbar.Link active>
+          <Link to="/">Home</Link>
+        </Navbar.Link>
+        <NavbarLink active>
+          <Link to="/register">About</Link>
+        </NavbarLink>
+        <NavbarLink active>
+          <Link to="/edit">Reviews</Link>
+        </NavbarLink>
+      </NavbarCollapse>
     </Navbar>
   );
 };
