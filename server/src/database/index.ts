@@ -9,7 +9,7 @@ const connectDB = async () => {
       throw new Error("MongoDB URL is not defined in the configuration.");
     }
     await mongoose.connect(config.mongo.url, config.mongo.options);
-    console.log("Mongo connected");
+    console.log("MongoDB is connected");
   } catch (error) {
     console.error("Error connecting to Mongo", error);
 
