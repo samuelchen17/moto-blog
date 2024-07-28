@@ -10,8 +10,6 @@ const app = express();
 // HTTP request logger, logs details about incoming HTTP requests such as request method, URL, status code, response time etc.
 app.use(morgan("dev"));
 
-connectDB();
-
 // parse the body
 // allow the server to read incoming request and body in json format
 // for applications that handle form submissions from an HTML form
@@ -35,7 +33,13 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-// Errpr handling
+// connect to Mongo
+connectDB();
+
+// user routes
+app.use("/api/user", userRoutes);
+
+// Error handling
 // Error handling for 404
 app.use((req, res, next) => {
   const error = new Error("404 error");
