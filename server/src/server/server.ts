@@ -2,7 +2,7 @@ import http from "http";
 import app from "./app";
 import config from "../config/config";
 // ensures db connection
-import "../database";
+import "../database/index.database";
 // ensures firebase initialisation
 // import "../firebase";
 
