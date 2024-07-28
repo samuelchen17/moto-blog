@@ -3,6 +3,7 @@ import morgan from "morgan";
 import cors from "cors";
 import connectDB from "../database/index.database";
 import userRoutes from "../routes/user.route";
+import authRoutes from "../routes/auth.route";
 
 const app = express();
 
@@ -36,8 +37,11 @@ app.use(cors(corsOptions));
 // connect to Mongo
 connectDB();
 
+// Routes
 // user routes
 app.use("/api/user", userRoutes);
+// auth routes
+app.use("/api/auth", authRoutes);
 
 // Error handling
 // Error handling for 404
