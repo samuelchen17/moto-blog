@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/user.model";
+import { hashSync } from "bcryptjs";
 
 export const signup = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
@@ -16,11 +17,14 @@ export const signup = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "All fields are required" });
   }
 
+  // this will auto-gen salt and hash at the same time
+  const hashedPassword = hashSync(password, 10);
+
   const newUser = new User({
     // if name is similar, can just use else, username: username
     username,
     email,
-    password,
+    password: hashedPassword,
   });
 
   try {
