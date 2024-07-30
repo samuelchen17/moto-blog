@@ -1,8 +1,12 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import User from "../models/user.model";
 import { hashSync } from "bcryptjs";
 
-export const signup = async (req: Request, res: Response) => {
+export const signup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const { username, email, password } = req.body;
 
   // back up check to see all fields are filled
@@ -31,6 +35,7 @@ export const signup = async (req: Request, res: Response) => {
     await newUser.save();
     res.json({ message: "Signup successful" });
   } catch (error) {
-    res.status(500).json({ message: error });
+    // res.status(500).json({ message: error });
+    next(error);
   }
 };

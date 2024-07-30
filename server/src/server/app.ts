@@ -4,6 +4,7 @@ import cors from "cors";
 import connectDB from "../database/index.database";
 import userRoutes from "../routes/user.route";
 import authRoutes from "../routes/auth.route";
+import { ICustomError } from "../interface/user.interface";
 
 const app = express();
 
@@ -53,5 +54,21 @@ app.use((req, res, next) => {
 });
 
 // add global error handler
+app.use(
+  (
+    err: ICustomError,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(statusCode).json({
+      success: false,
+      statusCode,
+      message,
+    });
+  }
+);
 
 export default app;
