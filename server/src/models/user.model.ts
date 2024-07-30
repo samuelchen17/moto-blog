@@ -6,11 +6,13 @@ const userSchema: Schema<IUser> = new mongoose.Schema(
     username: {
       type: String,
       required: [true, "Username is required"],
+      index: true,
       unique: true,
     },
     email: {
       type: String,
       required: true,
+      index: true,
       unique: true,
     },
     password: {
