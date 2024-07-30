@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/user.model";
 import { hashSync } from "bcryptjs";
+import { errorHandler } from "../utils/error";
 
 export const signup = async (
   req: Request,
@@ -18,7 +19,8 @@ export const signup = async (
     email === "" ||
     password === ""
   ) {
-    return res.status(400).json({ message: "All fields are required" });
+    // return res.status(400).json({ message: "All fields are required" });
+    next(errorHandler(400, "All fields are required"));
   }
 
   // this will auto-gen salt and hash at the same time
