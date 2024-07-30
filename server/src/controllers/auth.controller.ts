@@ -4,16 +4,17 @@ import User from "../models/user.model";
 export const signup = async (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
-  //   if (
-  //     !username ||
-  //     !email ||
-  //     !password ||
-  //     username === "" ||
-  //     email === "" ||
-  //     password === ""
-  //   ) {
-  //     return res.status(400).json({ message: "All fields are required" });
-  //   }
+  // back up check to see all fields are filled
+  if (
+    !username ||
+    !email ||
+    !password ||
+    username === "" ||
+    email === "" ||
+    password === ""
+  ) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
 
   const newUser = new User({
     // if name is similar, can just use else, username: username
@@ -26,8 +27,6 @@ export const signup = async (req: Request, res: Response) => {
     await newUser.save();
     res.json({ message: "Signup successful" });
   } catch (error) {
-    console.log(error);
-    // not working
-    // res.status(500).json(error.message);
+    res.status(500).json({ message: error });
   }
 };

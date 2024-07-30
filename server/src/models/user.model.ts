@@ -1,11 +1,12 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { IUser } from "../interface/user.interface";
 
+// const userSchema = new mongoose.Schema<IUser>
 const userSchema: Schema<IUser> = new mongoose.Schema<IUser>(
   {
     username: {
       type: String,
-      required: [true, "Username is required"],
+      required: true,
       unique: true,
     },
     email: {
@@ -22,5 +23,6 @@ const userSchema: Schema<IUser> = new mongoose.Schema<IUser>(
 );
 
 const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);
+// const User = mongoose.model<IUser>("User", userSchema);
 
 export default User;
