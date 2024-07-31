@@ -19,7 +19,7 @@ const userSchema: Schema<IUser> = new mongoose.Schema<IUser>(
       required: true,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const User: Model<IUser> = mongoose.model<IUser>("User", userSchema);

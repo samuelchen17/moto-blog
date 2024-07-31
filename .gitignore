@@ -115,6 +115,3 @@ dist
 
 # Vim swap files
 *.swp
-
-# build files
-build/
