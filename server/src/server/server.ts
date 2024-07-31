@@ -12,6 +12,6 @@ const httpServer = http.createServer(app);
 // listen for requests
 httpServer.listen(config.server.port, () => {
   console.log(
-    `Server is running at ${config.server.host} on port ${config.server.port}`
+    `Server is running at ${config.server.host} on port ${config.server.port}`,
   );
 });

@@ -6,7 +6,7 @@ import { errorHandler } from "../utils/error";
 export const signup = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const { username, email, password } = req.body;
 
@@ -37,7 +37,7 @@ export const signup = async (
     await newUser.save();
     res.json({ message: "Signup successful" });
   } catch (error) {
-    // res.status(500).json({ message: error });
+    res.status(500).json({ message: (error as Error)?.message });
     next(error);
   }
 };

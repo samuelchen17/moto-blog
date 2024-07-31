@@ -59,7 +59,7 @@ app.use(
     err: ICustomError,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    next: express.NextFunction,
   ) => {
     const statusCode = err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -68,7 +68,7 @@ app.use(
       statusCode,
       message,
     });
-  }
+  },
 );
 
 export default app;
