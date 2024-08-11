@@ -9,11 +9,11 @@ import {
   TextInput,
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
-import helmetIcon from "../assets/helmet.svg";
+import helmetIcon from "/helmet.svg";
 import { IoMdSearch } from "react-icons/io";
 import { FaMoon } from "react-icons/fa";
 
-const Header = () => {
+const NavBar = () => {
   const path = useLocation().pathname;
 
   return (
@@ -61,4 +61,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default NavBar;

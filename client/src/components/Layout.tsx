@@ -1,12 +1,12 @@
 import React from "react";
-import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import NavBar from "./NavBar/NavBar";
 
 const Layout = () => {
   return (
     <div>
-      <Header />
-      <main>
+      <NavBar />
+      <main className="mx-auto max-w-screen-lg">
         <Outlet />
       </main>
     </div>
