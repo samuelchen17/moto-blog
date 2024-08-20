@@ -1,9 +1,11 @@
+// code to run server: npx ts-node src/server/server.ts
+
 import http from "http";
 import app from "./app";
 import config from "../config/config";
 // ensures db connection
 import "../database/index.database";
-// ensures firebase initialisation
+// ensures firebase initialization
 // import "../firebase";
 
 // create HTTP server

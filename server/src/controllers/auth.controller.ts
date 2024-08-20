@@ -26,9 +26,10 @@ export const signup = async (
   // this will auto-gen salt and hash at the same time
   const hashedPassword = hashSync(password, 10);
 
+  // user User model to create newUser
   const newUser = new User({
-    // if name is similar, can just use else, username: username
-    username,
+    // if name is similar, can just use else,
+    username, // username: username
     email,
     password: hashedPassword,
   });
