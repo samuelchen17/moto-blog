@@ -53,7 +53,7 @@ app.use((req, res, next) => {
   });
 });
 
-// add global error handler
+// global error handler middleware
 app.use(
   (
     err: ICustomError,
