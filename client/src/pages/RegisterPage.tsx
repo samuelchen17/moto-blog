@@ -22,6 +22,10 @@ const RegisterPage = (props: IPageProps) => {
           </div>
           <Button type="submit">Register</Button>
         </form>
+        <div>
+          <span>Already registered?</span>
+          <span>Sign in</span>
+        </div>
       </div>
     </div>
   );
