@@ -5,6 +5,7 @@ import EditPage from "../pages/EditPage";
 import ErrorPage from "../pages/ErrorPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
 import AuthWrapper from "../components/AuthWrapper";
 import Layout from "../components/Layout";
 
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/register",
-        element: <AuthWrapper element={<LoginPage />} auth={false} />,
+        element: <AuthWrapper element={<RegisterPage />} auth={false} />,
       },
       {
         path: "/edit",
