@@ -1,3 +1,5 @@
+// error handler
+
 import { ICustomError } from "../interface/user.interface";
 
 export const errorHandler = (
