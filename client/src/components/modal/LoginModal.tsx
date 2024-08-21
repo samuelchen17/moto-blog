@@ -1,11 +1,12 @@
-import { useRef } from "react";
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import { useState } from "react";
 
 interface LoginModalProps {
   emailInputRef: React.RefObject<HTMLInputElement>;
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
+  const [registerOpen, setRegisterOpen] = useState(false);
   return (
     <>
       <Modal.Header>Login</Modal.Header>
@@ -17,9 +18,21 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
             </h3>
             <div>
               <div className="mb-2 block">
+                <Label htmlFor="email" value="Your username" />
+              </div>
+              <TextInput
+                type="text"
+                id="username"
+                ref={emailInputRef}
+                required
+              />
+            </div>
+            <div>
+              <div className="mb-2 block">
                 <Label htmlFor="email" value="Your email" />
               </div>
               <TextInput
+                type="email"
                 id="email"
                 ref={emailInputRef}
                 placeholder="name@company.com"
