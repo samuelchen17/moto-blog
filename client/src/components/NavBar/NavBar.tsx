@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   Button,
   Navbar,
@@ -15,6 +15,7 @@ import { FaMoon } from "react-icons/fa";
 
 const NavBar = () => {
   const path = useLocation().pathname;
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <Navbar className="border-b-2">
