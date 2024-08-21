@@ -1,8 +1,11 @@
 import { useRef } from "react";
 import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 
-const LoginModal = () => {
-  const emailInputRef = useRef<HTMLInputElement>(null);
+interface LoginModalProps {
+  emailInputRef: React.RefObject<HTMLInputElement>;
+}
+
+const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
   return (
     <>
       <Modal.Header />

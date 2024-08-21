@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   Button,
   Navbar,
@@ -18,6 +18,7 @@ import LoginModal from "../modal/LoginModal";
 const NavBar = () => {
   const path = useLocation().pathname;
   const [openModal, setOpenModal] = useState(false);
+  const emailInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <Navbar className="border-b-2">
@@ -62,13 +63,14 @@ const NavBar = () => {
         </NavbarLink>
       </NavbarCollapse>
       <Modal
+        dismissible
         show={openModal}
         size="md"
         popup
         onClose={() => setOpenModal(false)}
-        // initialFocus={emailInputRef}
+        initialFocus={emailInputRef}
       >
-        <LoginModal />
+        <LoginModal emailInputRef={emailInputRef} />
       </Modal>
     </Navbar>
   );
