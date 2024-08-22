@@ -9,6 +9,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
   const [registerOpen, setRegisterOpen] = useState(false);
   const [registerForm, setRegisterForm] = useState({});
   const [loginForm, setLoginForm] = useState({});
+
   const handleChange = (e: any) => {
     setRegisterForm({ ...registerForm, [e.target.id]: e.target.value });
   };
@@ -20,7 +21,10 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(registerForm),
       });
-    } catch (error) {}
+      const data = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   console.log(registerForm);

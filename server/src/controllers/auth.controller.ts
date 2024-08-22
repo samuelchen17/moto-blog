@@ -3,7 +3,7 @@ import User from "../models/user.model";
 import { hashSync } from "bcryptjs";
 import { errorHandler } from "../utils/error";
 
-export const signup = async (
+export const register = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -36,7 +36,7 @@ export const signup = async (
 
   try {
     await newUser.save();
-    res.json({ message: "Signup successful" });
+    res.json({ message: "Successfully registered" });
   } catch (error) {
     // res.status(500).json({ message: error });
     next(error);
