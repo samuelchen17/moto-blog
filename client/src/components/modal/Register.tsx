@@ -2,13 +2,21 @@ import React from "react";
 import { useState } from "react";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 
-type RegisterForm = {
+interface RegisterForm {
   username: string;
   email: string;
   password: string;
-};
+}
 
-const Register = ({
+interface RegisterProps {
+  errorMsg: string;
+  setErrorMsg: (msg: string) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+  setRegisterOpen: (isOpen: boolean) => void;
+}
+
+const Register: React.FC<RegisterProps> = ({
   errorMsg,
   setErrorMsg,
   loading,
@@ -95,7 +103,7 @@ const Register = ({
           <TextInput
             id="password"
             type="password"
-            required
+            // required
             onChange={handleChange}
           />
         </div>

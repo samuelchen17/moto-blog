@@ -42,3 +42,11 @@ export const register = async (
     next(error);
   }
 };
+
+export const login = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, password } = req.body;
+};

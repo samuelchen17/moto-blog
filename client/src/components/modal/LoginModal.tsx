@@ -1,12 +1,4 @@
-import {
-  Alert,
-  Button,
-  Checkbox,
-  Label,
-  Modal,
-  Spinner,
-  TextInput,
-} from "flowbite-react";
+import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import { useState } from "react";
 import Register from "./Register";
 
