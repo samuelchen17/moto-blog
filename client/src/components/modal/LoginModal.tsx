@@ -4,6 +4,7 @@ import {
   Checkbox,
   Label,
   Modal,
+  Spinner,
   TextInput,
 } from "flowbite-react";
 import { useState } from "react";
@@ -19,12 +20,13 @@ type RegisterForm = {
 };
 
 const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
-  const [registerOpen, setRegisterOpen] = useState(false);
-  const [registerForm, setRegisterForm] = useState<RegisterForm>({
+  const defaultForm = {
     username: "",
     email: "",
     password: "",
-  });
+  };
+  const [registerOpen, setRegisterOpen] = useState(false);
+  const [registerForm, setRegisterForm] = useState<RegisterForm>(defaultForm);
   // const [loginForm, setLoginForm] = useState({});
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(false);
@@ -44,14 +46,24 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
       return setErrorMsg("Please fill out all fields");
     }
     try {
+      setLoading(true);
+      setErrorMsg("");
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(registerForm),
       });
       const data = await res.json();
+      setLoading(false);
+      if (data.success === false) {
+        return setErrorMsg(data.message);
+      }
+      if (res.ok) {
+        setRegisterOpen(false);
+      }
     } catch (error) {
-      console.log(error);
+      setErrorMsg((error as Error).message);
+      setLoading(false);
     }
   };
 
@@ -152,7 +164,16 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
                 />
               </div>
               <div className="w-full">
-                <Button type="submit">Create account</Button>
+                <Button type="submit" disabled={loading}>
+                  {loading ? (
+                    <>
+                      <Spinner size="sm" />
+                      <span>Loading...</span>
+                    </>
+                  ) : (
+                    "Register"
+                  )}
+                </Button>
               </div>
               <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
                 Have an account?&nbsp;
