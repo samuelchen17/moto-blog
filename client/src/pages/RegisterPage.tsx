@@ -14,11 +14,11 @@ const RegisterPage = (props: IPageProps) => {
           </div>
           <div>
             <Label value="Your email" />
-            <TextInput type="text" placeholder="Email" id="email" />
+            <TextInput type="email" placeholder="Email" id="email" />
           </div>
           <div>
             <Label value="Your password" />
-            <TextInput type="text" placeholder="Password" id="password" />
+            <TextInput type="password" placeholder="Password" id="password" />
           </div>
           <Button type="submit">Register</Button>
         </form>

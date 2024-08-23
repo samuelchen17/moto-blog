@@ -1,20 +1,48 @@
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Checkbox,
+  Label,
+  Modal,
+  TextInput,
+} from "flowbite-react";
 import { useState } from "react";
 
 interface LoginModalProps {
   emailInputRef: React.RefObject<HTMLInputElement>;
 }
 
+type RegisterForm = {
+  username: string;
+  email: string;
+  password: string;
+};
+
 const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
   const [registerOpen, setRegisterOpen] = useState(false);
-  const [registerForm, setRegisterForm] = useState({});
-  const [loginForm, setLoginForm] = useState({});
+  const [registerForm, setRegisterForm] = useState<RegisterForm>({
+    username: "",
+    email: "",
+    password: "",
+  });
+  // const [loginForm, setLoginForm] = useState({});
+  const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: any) => {
-    setRegisterForm({ ...registerForm, [e.target.id]: e.target.value });
+    // .trim() to remove the spaces
+    setRegisterForm({ ...registerForm, [e.target.id]: e.target.value.trim() });
   };
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    if (
+      !registerForm.username ||
+      !registerForm.email ||
+      !registerForm.password
+    ) {
+      return setErrorMsg("Please fill out all fields");
+    }
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -96,7 +124,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
                 <TextInput
                   type="text"
                   id="username"
-                  required
+                  // required
                   onChange={handleChange}
                 />
               </div>
@@ -108,7 +136,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
                   type="email"
                   id="email"
                   placeholder="name@company.com"
-                  required
+                  // required
                   onChange={handleChange}
                 />
               </div>
@@ -135,6 +163,11 @@ const LoginModal: React.FC<LoginModalProps> = ({ emailInputRef }) => {
                   Log in
                 </button>
               </div>
+              {errorMsg && (
+                <Alert className="" color="failure">
+                  {errorMsg}
+                </Alert>
+              )}
             </div>
           </form>
         )}
