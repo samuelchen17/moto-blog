@@ -61,6 +61,9 @@ export const login = async (
       next(errorHandler(404, "User not found"));
     } else {
       const validPassword = compareSync(password, validUser.password);
+      if (!validPassword) {
+        next(errorHandler(400, "Invalid Password"));
+      }
     }
   } catch (error) {
     // res.status(500).json({ message: error });
