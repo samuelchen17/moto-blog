@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/user.model";
-import { hashSync } from "bcryptjs";
+import { compareSync, hashSync } from "bcryptjs";
 import { errorHandler } from "../utils/error";
 
 export const register = async (
@@ -49,4 +49,21 @@ export const login = async (
   next: NextFunction
 ) => {
   const { username, password } = req.body;
+
+  if (!username || !password || username === "" || password === "") {
+    // return res.status(400).json({ message: "All fields are required" });
+    next(errorHandler(400, "All fields are required"));
+  }
+
+  try {
+    const validUser = await User.findOne();
+    if (!validUser) {
+      next(errorHandler(404, "User not found"));
+    } else {
+      const validPassword = compareSync(password, validUser.password);
+    }
+  } catch (error) {
+    // res.status(500).json({ message: error });
+    next(error);
+  }
 };
