@@ -76,6 +76,7 @@ export const login = async (
     }
     const token = jwt.sign({ id: validUser._id }, jwtSecret);
 
+    // change from mongoose obj to JsObj
     const validUserObj = validUser.toObject();
     // remove password being sent back to user
     const { password: pass, ...userWithoutPassword } = validUserObj;
