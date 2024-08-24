@@ -75,7 +75,7 @@ const Register: React.FC<RegisterProps> = ({
         </h3>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email" value="Your username" />
+            <Label htmlFor="username" value="Your username" />
           </div>
           <TextInput
             type="text"

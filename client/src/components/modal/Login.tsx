@@ -1,6 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import {
+  Alert,
+  Button,
+  Label,
+  Spinner,
+  TextInput,
+  Checkbox,
+} from "flowbite-react";
 
 interface RegisterForm {
   username: string;
@@ -8,7 +15,7 @@ interface RegisterForm {
   password: string;
 }
 
-interface LoginProps {
+interface RegisterProps {
   errorMsg: string;
   setErrorMsg: (msg: string) => void;
   loading: boolean;
@@ -16,7 +23,7 @@ interface LoginProps {
   setRegisterOpen: (isOpen: boolean) => void;
 }
 
-const Login: React.FC<LoginProps> = ({
+const Login: React.FC<RegisterProps> = ({
   errorMsg,
   setErrorMsg,
   loading,
@@ -71,7 +78,7 @@ const Login: React.FC<LoginProps> = ({
     <form onSubmit={handleSubmit}>
       <div className="space-y-6">
         <h3 className="text-xl font-medium text-gray-900 dark:text-white">
-          Create an account
+          Login
         </h3>
         <div>
           <div className="mb-2 block">
@@ -80,18 +87,6 @@ const Login: React.FC<LoginProps> = ({
           <TextInput
             type="text"
             id="username"
-            // required
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <div className="mb-2 block">
-            <Label htmlFor="email" value="Your email" />
-          </div>
-          <TextInput
-            type="email"
-            id="email"
-            placeholder="name@company.com"
             // required
             onChange={handleChange}
           />
@@ -107,6 +102,18 @@ const Login: React.FC<LoginProps> = ({
             onChange={handleChange}
           />
         </div>
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <Checkbox id="remember" />
+            <Label htmlFor="remember">Remember me</Label>
+          </div>
+          <a
+            href="#"
+            className="text-sm text-cyan-700 hover:underline dark:text-cyan-500"
+          >
+            Lost Password?
+          </a>
+        </div>
         <div className="w-full">
           <Button type="submit" disabled={loading}>
             {loading ? (
@@ -115,17 +122,17 @@ const Login: React.FC<LoginProps> = ({
                 <span>Loading...</span>
               </>
             ) : (
-              "Register"
+              "Log in"
             )}
           </Button>
         </div>
         <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
-          Have an account?&nbsp;
+          Not registered?&nbsp;
           <button
-            onClick={() => setRegisterOpen(false)}
+            onClick={() => setRegisterOpen(true)}
             className="text-cyan-700 hover:underline dark:text-cyan-500"
           >
-            Log in
+            Register
           </button>
         </div>
         {errorMsg && (
@@ -139,3 +146,29 @@ const Login: React.FC<LoginProps> = ({
 };
 
 export default Login;
+
+{
+  /* <form>
+    <div>
+      <div className="mb-2 block">
+        <Label htmlFor="email" value="Your email" />
+      </div>
+      <TextInput
+        type="email"
+        id="email"
+        ref={emailInputRef}
+        placeholder="name@company.com"
+        required
+      />
+    </div>
+ 
+    <div className="w-full">
+      <Button type="submit">Log in to your account</Button>
+    </div>
+    <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
+      Not registered?&nbsp;
+      
+    </div>
+  </div>
+</form>; */
+}
