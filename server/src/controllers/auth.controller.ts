@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import User from "../models/user.model";
 import { compareSync, hashSync } from "bcryptjs";
 import { errorHandler } from "../utils/error";
+import jwt from "jsonwebtoken";
 
 export const register = async (
   req: Request,
@@ -57,14 +58,28 @@ export const login = async (
 
   try {
     const validUser = await User.findOne();
+
     if (!validUser) {
-      next(errorHandler(404, "User not found"));
-    } else {
-      const validPassword = compareSync(password, validUser.password);
-      if (!validPassword) {
-        next(errorHandler(400, "Invalid Password"));
-      }
+      return next(errorHandler(404, "User not found"));
     }
+
+    const validPassword = compareSync(password, validUser.password);
+    if (!validPassword) {
+      return next(errorHandler(400, "Invalid Password"));
+    }
+
+    const jwtSecret = process.env.JWT_SECRET;
+    if (!jwtSecret) {
+      throw new Error("JWT_SECRET is not defined in environment variables");
+    }
+    const token = jwt.sign({ id: validUser._id }, jwtSecret);
+
+    res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .json(validUser);
   } catch (error) {
     // res.status(500).json({ message: error });
     next(error);
