@@ -49,15 +49,17 @@ export const login = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { username, password } = req.body;
+  const { loginInput, password } = req.body;
 
-  if (!username || !password || username === "" || password === "") {
+  if (!loginInput || !password || loginInput === "" || password === "") {
     // return res.status(400).json({ message: "All fields are required" });
     next(errorHandler(400, "All fields are required"));
   }
 
   try {
-    const validUser = await User.findOne();
+    const validUser = await User.findOne({
+      $or: [{ username: loginInput }, { email: loginInput }],
+    });
 
     if (!validUser) {
       return next(errorHandler(404, "User not found"));
