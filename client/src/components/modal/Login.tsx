@@ -9,7 +9,7 @@ import {
   Checkbox,
 } from "flowbite-react";
 
-interface RegisterForm {
+interface setLoginForm {
   username: string;
   email: string;
   password: string;
@@ -36,29 +36,25 @@ const Login: React.FC<RegisterProps> = ({
     password: "",
   };
 
-  const [registerForm, setRegisterForm] = useState<RegisterForm>(defaultForm);
+  const [loginForm, setLoginForm] = useState<loginForm>(defaultForm);
 
   const handleChange = (e: any) => {
     // .trim() to remove the spaces
-    setRegisterForm({ ...registerForm, [e.target.id]: e.target.value.trim() });
+    setLoginForm({ ...setLoginForm, [e.target.id]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (
-      !registerForm.username ||
-      !registerForm.email ||
-      !registerForm.password
-    ) {
+    if (!setLoginForm.loginInput || !setLoginForm.password) {
       return setErrorMsg("Please fill out all fields");
     }
     try {
       setLoading(true);
       setErrorMsg("");
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(registerForm),
+        body: JSON.stringify(setLoginForm),
       });
       const data = await res.json();
       setLoading(false);
@@ -82,18 +78,18 @@ const Login: React.FC<RegisterProps> = ({
         </h3>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="email" value="Your username" />
+            <Label htmlFor="loginInput" value="Username or Email" />
           </div>
           <TextInput
             type="text"
-            id="username"
+            id="loginInput"
             // required
             onChange={handleChange}
           />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="password" value="Your password" />
+            <Label htmlFor="password" value="Password" />
           </div>
           <TextInput
             id="password"
