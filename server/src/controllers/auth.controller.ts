@@ -76,12 +76,16 @@ export const login = async (
     }
     const token = jwt.sign({ id: validUser._id }, jwtSecret);
 
+    const validUserObj = validUser.toObject();
+    // remove password being sent back to user
+    const { password: pass, ...userWithoutPassword } = validUserObj;
+
     res
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
       })
-      .json(validUser);
+      .json(userWithoutPassword);
   } catch (error) {
     // res.status(500).json({ message: error });
     next(error);
