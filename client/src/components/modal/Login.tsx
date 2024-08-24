@@ -9,13 +9,12 @@ import {
   Checkbox,
 } from "flowbite-react";
 
-interface setLoginForm {
-  username: string;
-  email: string;
+interface LoginForm {
+  loginInput: string;
   password: string;
 }
 
-interface RegisterProps {
+interface LoginProps {
   errorMsg: string;
   setErrorMsg: (msg: string) => void;
   loading: boolean;
@@ -23,7 +22,7 @@ interface RegisterProps {
   setRegisterOpen: (isOpen: boolean) => void;
 }
 
-const Login: React.FC<RegisterProps> = ({
+const Login: React.FC<LoginProps> = ({
   errorMsg,
   setErrorMsg,
   loading,
@@ -31,16 +30,15 @@ const Login: React.FC<RegisterProps> = ({
   setRegisterOpen,
 }) => {
   const defaultForm = {
-    username: "",
-    email: "",
+    loginInput: "",
     password: "",
   };
 
-  const [loginForm, setLoginForm] = useState<loginForm>(defaultForm);
+  const [loginForm, setLoginForm] = useState<LoginForm>(defaultForm);
 
   const handleChange = (e: any) => {
     // .trim() to remove the spaces
-    setLoginForm({ ...setLoginForm, [e.target.id]: e.target.value.trim() });
+    setLoginForm({ ...loginForm, [e.target.id]: e.target.value.trim() });
   };
 
   const handleSubmit = async (e: any) => {
