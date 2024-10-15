@@ -43,7 +43,7 @@ const Login: React.FC<LoginProps> = ({
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (!setLoginForm.loginInput || !setLoginForm.password) {
+    if (!loginForm.loginInput || !loginForm.password) {
       return setErrorMsg("Please fill out all fields");
     }
     try {
@@ -113,7 +113,7 @@ const Login: React.FC<LoginProps> = ({
             {loading ? (
               <>
                 <Spinner size="sm" />
-                <span>Loading...</span>
+                <span className="ml-2">Loading...</span>
               </>
             ) : (
               "Log in"

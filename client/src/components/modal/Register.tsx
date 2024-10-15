@@ -34,6 +34,7 @@ const Register: React.FC<RegisterProps> = ({
   const handleChange = (e: any) => {
     // .trim() to remove the spaces
     setRegisterForm({ ...registerForm, [e.target.id]: e.target.value.trim() });
+    console.log(registerForm);
   };
 
   const handleSubmit = async (e: any) => {
@@ -56,12 +57,15 @@ const Register: React.FC<RegisterProps> = ({
       const data = await res.json();
       setLoading(false);
       if (data.success === false) {
+        alert("Successful registration");
         return setErrorMsg(data.message);
       }
       if (res.ok) {
         setRegisterOpen(false);
+        // log user in after registering
       }
     } catch (error) {
+      alert("error");
       setErrorMsg((error as Error).message);
       setLoading(false);
     }
@@ -112,7 +116,7 @@ const Register: React.FC<RegisterProps> = ({
             {loading ? (
               <>
                 <Spinner size="sm" />
-                <span>Loading...</span>
+                <span className="ml-2">Loading...</span>
               </>
             ) : (
               "Register"
